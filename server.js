@@ -1,13 +1,13 @@
-const express = require("express");
-const app = express();
-const cookieParser = require("cookie-parser")
+const app = require("./app");
+const dotenv = require("dotenv");
+const connectDatabase = require("./Database/database");
 
-app.use(express.json())
-app.use(cookieParser())
+//config
+dotenv.config({path:"./.env"})
 
-//Route Imports
+///Connecting to Database
+connectDatabase()
 
-app.use("/api/v1")
-app.use("/api/v1")
-
-module.exports = app;
+app.listen(process.env.PORT,()=>{
+    console.log(`Server is working on http://localhost:${process.env.PORT}`)
+});

@@ -1,14 +1,15 @@
-const app = require("./app");
-const dotenv = require("dotenv");
-const connectDatabase = require("./config/database");
+const express = require("express");
+var app = express();
+const path = require("path");
+app.use(express.json())
 
+//Route Imports
 
-//config
-dotenv.config({path:"backend/config/config.env"})
+//static Folder
+app.use(express.static(path.resolve(__dirname,'files')));
 
-//Connecting Mongodb
-connectDatabase()
+const multer = require("./Routes/multerRoutes")
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Server is working on http://localhost:${process.env.PORT}`)
-});
+app.use("/api/v1",multer)
+// app.use("/api/v1")
+module.exports = app;
