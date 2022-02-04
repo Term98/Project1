@@ -1,11 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const mongoose = require("mongoose");
-var csvUser = require("../Database/databaseModel");
-const csv = require("csvtojson");
-const app = require("../app");
-const { uploadDataToMongo, getData } = require("../controller/multerController");
+const { uploadDataToMongo, getData, updateData, deleteData } = require("../controller/multerController");
+const { isAuthenticatedUser } = require("../middleware/auth");
 
 
 //Initializing multer 
@@ -21,8 +18,14 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({storage:fileStorageEngine}).single("file");
     
 
-router.route("/get").get(getData);
+router.route("/get")
+.get(isAuthenticatedUser,getData);
 
-router.route("/single").post(upload , uploadDataToMongo )
+router.route("/upload")
+.post(isAuthenticatedUser, upload , uploadDataToMongo)
+
+router.route("/data/:id")
+.put(isAuthenticatedUser,updateData)
+.delete(isAuthenticatedUser,deleteData)
 
 module.exports = router;

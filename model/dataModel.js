@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 var csvSchema = new mongoose.Schema({
     Username:{
-        type:String
+        type:String,
+        required: [true, "Please Enter Username"]
     },
     Identifier:{
         type:Number
@@ -12,6 +13,10 @@ var csvSchema = new mongoose.Schema({
     },
     Lastname:{
         type:String
+    },
+    createdAt: {
+    type: Date,
+    default: Date.now,
     }
 
 });

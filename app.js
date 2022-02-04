@@ -1,15 +1,19 @@
 const express = require("express");
 var app = express();
 const path = require("path");
-app.use(express.json())
+const cookieParser = require("cookie-parser")
 
-//Route Imports
+app.use(express.json())
+app.use(cookieParser())
 
 //static Folder
 app.use(express.static(path.resolve(__dirname,'files')));
 
-const multer = require("./Routes/multerRoutes")
+//Route Imports
+const multer = require("./Routes/multerRoutes");
+const user =  require("./Routes/userRoutes")
 
 app.use("/api/v1",multer)
-// app.use("/api/v1")
+app.use("/api/v1",user);
+
 module.exports = app;
