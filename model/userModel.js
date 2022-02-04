@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -21,6 +18,8 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+//For Getting JWT TOKEN
 
 userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {

@@ -1,9 +1,8 @@
 const User = require("../model/userModel");
 const ErrorHander = require("../utils/ErrorHander");
 const sendToken = require("../utils/jwtToken");
-const crypto = require("crypto");
 
-
+//REGISTER USER
 exports.registerUser = async (req,res,next) => {
 
         const {username} = req.body
@@ -15,13 +14,14 @@ exports.registerUser = async (req,res,next) => {
         sendToken(user,201,res)
 };
 
+//LOGIN USER
 exports.loginUser = async (req, res, next) => {
   const { username} = req.body;
 
-  // checking if user has given password and email both
+  // checking if user has given USERNAME
 
   if (!username) {
-    return next(new ErrorHander("Please Enter Email & Password", 400));
+    return next(new ErrorHander("Please Enter username", 400));
   }
 
   const user = await User.findOne({ username });
@@ -34,7 +34,7 @@ exports.loginUser = async (req, res, next) => {
 
 };
 
-
+//LOGOUT USER
 exports.logoutUser = async (req,res,next)=> {
 
     res.cookie("token",null, {

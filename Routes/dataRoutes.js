@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const { uploadDataToMongo, getData, updateData, deleteData } = require("../controller/multerController");
+const { uploadDataToMongo, getData, updateData, deleteData } = require("../controller/dataController");
 const { isAuthenticatedUser } = require("../middleware/auth");
 
 
@@ -22,10 +22,10 @@ router.route("/get")
 .get(isAuthenticatedUser,getData);
 
 router.route("/upload")
-.post(isAuthenticatedUser, upload , uploadDataToMongo)
+.post(isAuthenticatedUser, upload , uploadDataToMongo);
 
 router.route("/data/:id")
 .put(isAuthenticatedUser,updateData)
-.delete(isAuthenticatedUser,deleteData)
+.delete(isAuthenticatedUser,deleteData);
 
 module.exports = router;
